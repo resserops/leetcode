@@ -1,0 +1,13 @@
+---
+AccessModifierOffset: -4
+AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Left
+AllowShortBlocksOnASingleLine: Always
+AlwaysBreakTemplateDeclarations: 'Yes'
+BasedOnStyle: LLVM
+ColumnLimit: 120
+IfMacros: [ONLY, ONCE, TWICE, EVERY]
+IndentWidth: 4
+InsertNewlineAtEOF: true
+SpaceBeforeParens: ControlStatementsExceptControlMacros

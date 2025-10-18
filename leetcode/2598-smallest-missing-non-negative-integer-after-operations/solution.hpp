@@ -2,7 +2,7 @@
 
 class Solution {
 public:
-    int findSmallestInteger(std::vector<int>& nums, int value) {
+    int findSmallestInteger(std::vector<int> &nums, int value) {
         std::vector<int> count(value);
         for (int n : nums) {
             int rem{n % value};
@@ -20,3 +20,5 @@ public:
         return count[min_pos] * value + min_pos;
     }
 };
+
+// 270
