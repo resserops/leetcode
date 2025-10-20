@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+    
+    strategy:
+      matrix:
+        build:
+          - type: asan
+            args: -ad
+          - type: release
+            args: -r
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Clang-format
+        uses: jidicula/clang-format-action@v4.15.0
+        with:
+          clang-format-version: 16
+          check-path: leetcode
+
+      - name: Install c++ build toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-12 cmake make
+
+      - name: Build project (${{ matrix.build.type }})
+        env:
+          CC: gcc-12
+          CXX: g++-12
+        run: ./build.py ${{ matrix.build.args }}
+
+      - name: Test
+        run: ./build/bin/leetcode_test
