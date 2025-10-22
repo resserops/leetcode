@@ -8,7 +8,7 @@ class Solution {
 public:
     static int finalValueAfterOperations(const std::vector<std::string> &operations) {
         int res{0};
-        for (const std::string &op : operations) {
+        for (const auto &op : operations) {
             if (op[1] == '+') {
                 ++res;
             } else {
@@ -20,14 +20,13 @@ public:
 };
 } // namespace approach1
 
-// 方法2：加法计数
+// 方法2：++计数
 namespace approach2 {
 class Solution {
 public:
     static int finalValueAfterOperations(const std::vector<std::string> &operations) {
-        auto is_inc{[](const std::string &op) { return op[1] == '+'; }};
-        auto incs{std::count_if(operations.begin(), operations.end(), is_inc)};
-        return 2 * incs - operations.size();
+        auto isInc{[](const std::string &op) { return op[1] == '+'; }};
+        return 2 * std::ranges::count_if(operations, isInc) - operations.size();
     }
 };
 } // namespace approach2

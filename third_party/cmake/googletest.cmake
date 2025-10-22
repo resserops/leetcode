@@ -1,5 +1,6 @@
 if(NOT TARGET gtest)
     execute_process(COMMAND git submodule update --init --recursive ${3rd_dir}/googletest)
     include_directories(SYSTEM ${3rd_dir}/googletest/googletest/include)
+    include_directories(SYSTEM ${3rd_dir}/googletest/googlemock/include)
     add_subdirectory(${3rd_dir}/googletest)
 endif()

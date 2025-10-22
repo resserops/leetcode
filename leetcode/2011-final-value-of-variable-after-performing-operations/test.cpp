@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 template <typename Solution>
-void Expect(int expected, const std::vector<std::string> &operations) {
+void Expect(const int expected, const std::vector<std::string> &operations) {
     Solution solution;
     EXPECT_EQ(expected, solution.finalValueAfterOperations(operations));
 }
