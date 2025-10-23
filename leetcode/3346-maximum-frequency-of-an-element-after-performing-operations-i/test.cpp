@@ -43,5 +43,10 @@ TEST(LeetCode3346, Regression5) {
 
 TEST(LeetCode3346, Regression6) {
     const std::vector<int> nums{111, 21, 21, 13, 11};
-    Expect<Solution>(1, nums, 3, 0);
+    Expect<Solution>(2, nums, 3, 0);
+}
+
+TEST(LeetCode3346, Regression7) {
+    const std::vector<int> nums{28, 79, 98, 98, 61, 41};
+    Expect<Solution>(2, nums, 4, 0);
 }
