@@ -1,0 +1,24 @@
+example1:
+  input:
+    s: "3902"
+  expected: true
+
+example2:
+  input:
+    s: "34789"
+  expected: false
+
+regression1:
+  input:
+    s: "4867716181911413979960155821878"
+  expected: true
+
+regression2:
+  input:
+    s: "472371665226339635424494604455723348326857778972516313101962164"
+  expected: true
+
+regression3:
+  input:
+    s: "4802870269162891409411160836125514611"
+  expected: true
