@@ -12,7 +12,7 @@ struct Solution {
             if (i > 0 && nums[i - 1] == nums[i]) {
                 continue;
             }
-            // 只有nums中每个数n及n±k，可能达到最大频率
+            // 只有nums中的数n及n±k，可能达到最大频率
             for (int cn : {nums[i] - k, nums[i], nums[i] + k}) {
                 if (cn < nums.front() || cn > nums.back()) {
                     continue;
