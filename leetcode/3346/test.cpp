@@ -1,6 +1,7 @@
 #include "test.hpp"
 #include "solution.hpp"
 
+using namespace testing;
 namespace {
 using SolutionList = std::tuple<Solution>;
 struct TestCase {
@@ -20,6 +21,15 @@ struct TestCase {
 
 template <typename Solution>
 void Expect(const std::vector<int> &nums, const int k, const int numOperations, const int expected) {
+    // 检查约束条件
+    ASSERT_THAT(nums.size(), AllOf(Ge(1), Le(100000))); // 1 <= nums.length <= 10^5
+    for (int n : nums) {                                // 1 <= nums[i] <= 10^5
+        ASSERT_THAT(n, AllOf(Ge(1), Le(100000)));
+    }
+    ASSERT_THAT(k, AllOf(Ge(0), Le(100000)));                  // 0 <= k <= 10^5
+    ASSERT_THAT(numOperations, AllOf(Ge(0), Le(nums.size()))); // 0 <= numOperations <= nums.length
+
+    // 测试目标函数
     Solution solution;
     EXPECT_EQ(solution.maxFrequency(nums, k, numOperations), expected);
 }
