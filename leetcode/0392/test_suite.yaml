@@ -1,0 +1,11 @@
+example1:
+  input:
+    s: "abc"
+    t: "ahbgdc"
+  expected: true
+
+example2:
+  input:
+    s: "axc"
+    t: "ahbgdc"
+  expected: false

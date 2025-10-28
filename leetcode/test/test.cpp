@@ -9,7 +9,7 @@ std::string GetTestSuitePath() {
     std::string_view suite{testing::UnitTest::GetInstance()->current_test_info()->test_suite_name()};
     std::string_view num{
         suite.substr(std::distance(suite.begin(), std::find_if(suite.begin(), suite.end(), ::isdigit)))};
-    return path / num / "test_suite.yaml";
+    return path / (std::string(4 - num.size(), '0') + std::string(num)) / "test_suite.yaml";
 }
 
 std::string GetTestCaseName() {
