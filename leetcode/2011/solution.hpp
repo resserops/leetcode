@@ -20,7 +20,7 @@ public:
 };
 } // namespace approach1
 
-// 方法2：++计数
+// 方法2：计数
 namespace approach2 {
 class Solution {
 public:

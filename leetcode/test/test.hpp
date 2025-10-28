@@ -2,11 +2,10 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#define GET_TEST_CASE() ::GetTestCase<TestCase>(::GetTestSuitePath(__FILE__), ::GetTestCaseName())
 #define TEST_Y(suite, name) \
-    TEST(suite, name) { ::Expect(SolutionList{}, GET_TEST_CASE()); }
+    TEST(suite, name) { ::Expect(SolutionList{}, ::GetTestCase<TestCase>()); }
 
-std::string GetTestSuitePath(const char *file);
+std::string GetTestSuitePath();
 std::string GetTestCaseName();
 
 template <typename TestCase>
@@ -21,11 +20,11 @@ auto GetTestSuite(const std::string &testSuitePath) {
 }
 
 template <typename TestCase>
-const TestCase &GetTestCase(const std::string &testSuitePath, const std::string &key) {
-    static const std::string &path{testSuitePath};
+const TestCase &GetTestCase() {
+    static const auto path{GetTestSuitePath()};
     static const auto testSuite{GetTestSuite<TestCase>(path)};
-    assert(testSuitePath == path);
-    return testSuite.at(key);
+    assert(path == GetTestSuitePath());
+    return testSuite.at(::GetTestCaseName());
 }
 
 template <typename T>

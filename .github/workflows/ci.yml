@@ -38,4 +38,4 @@ jobs:
         run: ./build.py ${{ matrix.build.args }}
 
       - name: Test
-        run: ./build/bin/leetcode_test
+        run: ./build/bin/test_leetcode
