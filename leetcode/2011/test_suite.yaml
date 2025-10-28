@@ -1,0 +1,14 @@
+example1:
+  input:
+    operations: ["--X","X++","X++"]
+  expected: 1
+
+example2:
+  input:
+    operations: ["++X","++X","X++"]
+  expected: 3
+
+example3:
+  input:
+    operations: ["X++","++X","--X","X--"]
+  expected: 0

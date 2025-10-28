@@ -11,7 +11,6 @@ std::string GetTestCaseName();
 
 template <typename TestCase>
 auto GetTestSuite(const std::string &testSuitePath) {
-    std::cout << "Get path: " << testSuitePath << std::endl;
     std::unordered_map<std::string, TestCase> testSuite;
     auto testCaseFile{YAML::LoadFile(testSuitePath)};
     for (const auto &p : testCaseFile) {
@@ -30,7 +29,7 @@ const TestCase &GetTestCase(const std::string &testSuitePath, const std::string 
 }
 
 template <typename T>
-void GetNode(T &t, const YAML::Node &node) {
+void Decode(const YAML::Node &node, T &t) {
     t = node.as<std::decay_t<T>>();
 }
 

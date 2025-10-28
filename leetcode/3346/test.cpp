@@ -5,10 +5,10 @@ namespace {
 using SolutionList = std::tuple<Solution>;
 struct TestCase {
     TestCase(const YAML::Node &node) {
-        input.nums = node["input"]["nums"].as<std::vector<int>>();
-        input.k = node["input"]["k"].as<int>();
-        input.numOperations = node["input"]["numOperations"].as<int>();
-        expected = node["expected"].as<int>();
+        Decode(node["input"]["nums"], input.nums);
+        Decode(node["input"]["k"], input.k);
+        Decode(node["input"]["numOperations"], input.numOperations);
+        Decode(node["expected"], expected);
     }
     struct {
         std::vector<int> nums;
