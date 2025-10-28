@@ -10,7 +10,7 @@ regression2:
     nums: [999999997,999999999,999999999]
     k: 999999999
     numOperations: 2
-  expected:
+  expected: 2
 
 regression3:
   input:
