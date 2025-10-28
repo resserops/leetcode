@@ -41,4 +41,5 @@ void Expect(const TestCase &tc) {
 
 TEST_Y(LeetCode392, Example1);
 TEST_Y(LeetCode392, Example2);
+TEST_Y(LeetCode392, Regression1);
 } // namespace
