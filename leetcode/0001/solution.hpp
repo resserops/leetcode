@@ -2,9 +2,9 @@
 #include <unordered_map>
 #include <vector>
 
-class Solution {
-public:
-    std::vector<int> twoSum(const std::vector<int> &nums, int target) {
+// 方法1：哈希表
+struct Solution {
+    static std::vector<int> twoSum(const std::vector<int> &nums, int target) {
         std::unordered_map<int, int> hash;
         for (std::size_t i{0}; i < nums.size(); ++i) {
             auto it{hash.find(nums[i])};
