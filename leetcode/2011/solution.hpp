@@ -4,8 +4,7 @@
 
 // 方法1：模拟
 namespace approach1 {
-class Solution {
-public:
+struct Solution {
     static int finalValueAfterOperations(const std::vector<std::string> &operations) {
         int res{0};
         for (const auto &op : operations) {
@@ -20,10 +19,9 @@ public:
 };
 } // namespace approach1
 
-// 方法2：计数
+// 方法2：计数 + 数学推导
 namespace approach2 {
-class Solution {
-public:
+struct Solution {
     static int finalValueAfterOperations(const std::vector<std::string> &operations) {
         auto isInc{[](const std::string &op) { return op[1] == '+'; }};
         return 2 * std::ranges::count_if(operations, isInc) - operations.size();
