@@ -1,5 +1,5 @@
-#include "test.hpp"
 #include "solution.hpp"
+#include "test_utility.hpp"
 
 using namespace testing;
 namespace {
