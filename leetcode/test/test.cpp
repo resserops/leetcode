@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <ranges>
 
+namespace detail {
 std::string GetTestSuitePath() {
     std::filesystem::path path{PROBLEM_PATH};
     std::string_view suite{testing::UnitTest::GetInstance()->current_test_info()->test_suite_name()};
@@ -17,3 +18,4 @@ std::string GetTestCaseName() {
     name[0] = std::tolower(name[0]);
     return name;
 }
+} // namespace detail
