@@ -3,8 +3,9 @@
 #include "gtest/gtest.h"
 
 #define TEST_Y(suite, name) \
-    TEST(suite, name) { ::RunTestImpl<SolutionList>::F(::GetTestCase<TestCase>()); }
+    TEST(suite, name) { ::detail::RunTestImpl<SolutionList>::F(::detail::GetTestCase<TestCase>()); }
 
+namespace detail {
 std::string GetTestSuitePath();
 std::string GetTestCaseName();
 
@@ -24,16 +25,8 @@ const TestCase &GetTestCase() {
     static const auto path{GetTestSuitePath()};
     static const auto testSuite{GetTestSuite<TestCase>(path)};
     assert(path == GetTestSuitePath());
-    return testSuite.at(::GetTestCaseName());
+    return testSuite.at(GetTestCaseName());
 }
-
-template <typename T>
-void Decode(const YAML::Node &node, T &t) {
-    t = node.as<std::decay_t<T>>();
-}
-
-template <typename...>
-struct TypeList;
 
 template <typename>
 struct RunTestImpl;
@@ -44,6 +37,15 @@ struct RunTestImpl<TypeList<Solutions...>> {
         (RunTest<Solutions>(args...), ...);
     }
 };
+} // namespace detail
+
+template <typename T>
+void Decode(const YAML::Node &node, T &t) {
+    t = node.as<std::decay_t<T>>();
+}
+
+template <typename...>
+struct TypeList;
 
 // 用例约束检查
 // 编译期计算10^N，简明定义数据范围
@@ -53,3 +55,4 @@ template <>
 constexpr std::intmax_t E<0>{1};
 
 constexpr bool IsLower(char c) noexcept { return 'a' <= c && c <= 'z'; }
+constexpr bool IsDigit(char c) noexcept { return '0' <= c && c <= '9'; }
