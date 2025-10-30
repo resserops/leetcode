@@ -3,7 +3,7 @@
 
 using namespace testing;
 namespace {
-using SolutionList = std::tuple<Solution>;
+using SolutionList = TypeList<Solution>;
 struct TestCase {
     TestCase(const YAML::Node &node) {
         Decode(node["input"]["nums"], input.nums);
@@ -18,11 +18,11 @@ struct TestCase {
 };
 
 template <typename Solution>
-void Expect(const std::vector<int> &nums, const int target, const std::vector<int> &expected) {
+void RunTest(const std::vector<int> &nums, const int target, const std::vector<int> &expected) {
     // 检查约束条件
-    ASSERT_THAT(nums.size(), AllOf(Ge(2), Le(10000)));               // 2 <= nums.length <= 10^4
-    ASSERT_THAT(nums, Each(AllOf(Ge(-1000000000), Le(1000000000)))); // -10^9 <= nums[i] <= 10^9
-    ASSERT_THAT(target, AllOf(Ge(-1000000000), Le(1000000000)));     // -10^9 <= target <= 10^9
+    ASSERT_THAT(nums.size(), AllOf(Ge(2), Le(E<4>)));    // 2 <= nums.length <= 10^4
+    ASSERT_THAT(nums, Each(AllOf(Ge(-E<9>), Le(E<9>)))); // -10^9 <= nums[i] <= 10^9
+    ASSERT_THAT(target, AllOf(Ge(-E<9>), Le(E<9>)));     // -10^9 <= target <= 10^9
     // Only one valid answer exists
     // TODO(resserops): 补充检查
 
@@ -37,8 +37,8 @@ void Expect(const std::vector<int> &nums, const int target, const std::vector<in
 }
 
 template <typename Solution>
-void Expect(const TestCase &tc) {
-    Expect<Solution>(tc.input.nums, tc.input.target, tc.expected);
+void RunTest(const TestCase &tc) {
+    RunTest<Solution>(tc.input.nums, tc.input.target, tc.expected);
 }
 
 TEST_Y(LeetCode1, Example1);

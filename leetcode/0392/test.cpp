@@ -3,7 +3,7 @@
 
 using namespace testing;
 namespace {
-using SolutionList = std::tuple<Solution>;
+using SolutionList = TypeList<Solution>;
 struct TestCase {
     TestCase(const YAML::Node &node) {
         Decode(node["input"]["s"], input.s);
@@ -18,16 +18,12 @@ struct TestCase {
 };
 
 template <typename Solution>
-void Expect(const std::string &s, const std::string &t, const bool expected) {
+void RunTest(const std::string &s, const std::string &t, const bool expected) {
     // 检查约束条件
-    ASSERT_THAT(s.size(), AllOf(Ge(0), Le(100)));   // 0 <= s.length <= 100
-    ASSERT_THAT(t.size(), AllOf(Ge(0), Le(10000))); // 0 <= t.length <= 10^4
-    for (auto ch : s) {                             // s and t consist only of lowercase English letters
-        ASSERT_TRUE(std::islower(ch));
-    }
-    for (auto ch : t) {
-        ASSERT_TRUE(std::islower(ch));
-    }
+    ASSERT_THAT(s.size(), AllOf(Ge(0), Le(100)));  // 0 <= s.length <= 100
+    ASSERT_THAT(t.size(), AllOf(Ge(0), Le(E<4>))); // 0 <= t.length <= 10^4
+    ASSERT_THAT(s, Each(Truly(IsLower)));          // s and t consist only of lowercase English letters
+    ASSERT_THAT(t, Each(Truly(IsLower)));
 
     // 测试目标函数
     Solution solution;
@@ -35,8 +31,8 @@ void Expect(const std::string &s, const std::string &t, const bool expected) {
 }
 
 template <typename Solution>
-void Expect(const TestCase &tc) {
-    Expect<Solution>(tc.input.s, tc.input.t, tc.expected);
+void RunTest(const TestCase &tc) {
+    RunTest<Solution>(tc.input.s, tc.input.t, tc.expected);
 }
 
 TEST_Y(LeetCode392, Example1);
