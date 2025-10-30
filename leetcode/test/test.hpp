@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 
 #define TEST_Y(suite, name) \
-    TEST(suite, name) { ::Expect(SolutionList{}, ::GetTestCase<TestCase>()); }
+    TEST(suite, name) { ::RunTestImpl<SolutionList>::F(::GetTestCase<TestCase>()); }
 
 std::string GetTestSuitePath();
 std::string GetTestCaseName();
@@ -32,7 +32,24 @@ void Decode(const YAML::Node &node, T &t) {
     t = node.as<std::decay_t<T>>();
 }
 
-template <template <typename...> typename Ts, typename... Solutions, typename... Args>
-void Expect(Ts<Solutions...> &&, Args &&...args) {
-    (Expect<Solutions>(std::forward<Args>(args)...), ...);
-}
+template <typename...>
+struct TypeList;
+
+template <typename>
+struct RunTestImpl;
+template <template <typename...> typename TypeList, typename... Solutions>
+struct RunTestImpl<TypeList<Solutions...>> {
+    template <typename... Args>
+    static void F(const Args &...args) {
+        (RunTest<Solutions>(args...), ...);
+    }
+};
+
+// 用例约束检查
+// 编译期计算10^N，简明定义数据范围
+template <unsigned N>
+constexpr std::intmax_t E{10 * E<N - 1>};
+template <>
+constexpr std::intmax_t E<0>{1};
+
+constexpr bool IsLower(char c) noexcept { return 'a' <= c && c <= 'z'; }

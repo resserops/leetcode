@@ -3,7 +3,7 @@
 
 using namespace testing;
 namespace {
-using SolutionList = std::tuple<Solution>;
+using SolutionList = TypeList<Solution>;
 struct TestCase {
     TestCase(const YAML::Node &node) {
         Decode(node["input"]["nums"], input.nums);
@@ -20,13 +20,11 @@ struct TestCase {
 };
 
 template <typename Solution>
-void Expect(const std::vector<int> &nums, const int k, const int numOperations, const int expected) {
+void RunTest(const std::vector<int> &nums, const int k, const int numOperations, const int expected) {
     // 检查约束条件
-    ASSERT_THAT(nums.size(), AllOf(Ge(1), Le(100000))); // 1 <= nums.length <= 10^5
-    for (int n : nums) {                                // 1 <= nums[i] <= 10^5
-        ASSERT_THAT(n, AllOf(Ge(1), Le(1000000000)));
-    }
-    ASSERT_THAT(k, AllOf(Ge(0), Le(1000000000)));              // 0 <= k <= 10^5
+    ASSERT_THAT(nums.size(), AllOf(Ge(1), Le(E<5>)));          // 1 <= nums.length <= 10^5
+    ASSERT_THAT(nums, Each(AllOf(Ge(1), Le(E<9>))));           // 1 <= nums[i] <= 10^9
+    ASSERT_THAT(k, AllOf(Ge(0), Le(E<9>)));                    // 0 <= k <= 10^9
     ASSERT_THAT(numOperations, AllOf(Ge(0), Le(nums.size()))); // 0 <= numOperations <= nums.length
 
     // 测试目标函数
@@ -35,8 +33,8 @@ void Expect(const std::vector<int> &nums, const int k, const int numOperations, 
 }
 
 template <typename Solution>
-void Expect(const TestCase &tc) {
-    Expect<Solution>(tc.input.nums, tc.input.k, tc.input.numOperations, tc.expected);
+void RunTest(const TestCase &tc) {
+    RunTest<Solution>(tc.input.nums, tc.input.k, tc.input.numOperations, tc.expected);
 }
 
 TEST_Y(LeetCode3347, Example1);
