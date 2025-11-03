@@ -1,0 +1,11 @@
+example1:
+  input:
+    nums: [1,2,2,3,3,4]
+    k: 2
+  expected: 6
+
+example2:
+  input:
+    nums: [4,4,4,4]
+    k: 1
+  expected: 3

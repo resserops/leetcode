@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 // 方法1：双指针

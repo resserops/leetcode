@@ -1,5 +1,5 @@
 # 构建测试对象库
-file(GLOB_RECURSE TEST_SRC "*/test.cpp")
+file(GLOB_RECURSE TEST_SRC "*.cpp")
 add_library(test_leetcode_o OBJECT ${TEST_SRC})
 target_include_directories(test_leetcode_o PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test)
 target_compile_definitions(test_leetcode_o PRIVATE PROBLEM_PATH=\"${CMAKE_CURRENT_SOURCE_DIR}\")
