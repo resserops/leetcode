@@ -24,6 +24,7 @@ auto GetTestSuite(const std::string &testSuitePath) {
 template <typename TestCase>
 const TestCase &GetTestCase() {
     static const auto path{GetTestSuitePath()};
+    // TODO(resserops): 每个TestSuite结束后清理
     static const auto testSuite{GetTestSuite<TestCase>(path)};
     assert(path == GetTestSuitePath());
     return testSuite.at(GetTestCaseName());
